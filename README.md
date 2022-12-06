@@ -1,10 +1,10 @@
-# Advent of Code 2022
+# Advent of Code 2022 🎄
 
 TypeScript solutions for the Advent of Code 2022 puzzles.
 
 https://adventofcode.com/2022/
 
-Solutions favor readability and maintainability over performance.
+Solutions favor readability and testability over performance or conciseness.
 
 ## How to run
 
