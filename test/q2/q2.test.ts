@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { calculateEncryptedStrategyGuidePointsV1 } from '../../src/q2';
+import { calculateEncryptedStrategyGuidePointsV1 } from '../../src/q2/v1';
 
 const SIMPLE_INPUT = fs.readFileSync(path.join(__dirname, 'input-simple.txt'), 'utf-8');
 const COMPLEX_INPUT = fs.readFileSync(path.join(__dirname, 'input-complex.txt'), 'utf-8');
