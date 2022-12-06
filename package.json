@@ -1,5 +1,5 @@
 {
-  "name": "@pascal-giguere/starter-node",
+  "name": "@pascal-giguere/advent-of-code-2022",
   "version": "1.0.0",
   "author": "Pascal Giguère",
   "repository": "https://github.com/pascal-giguere/starter-node",
@@ -11,7 +11,9 @@
     "npm": "please-use-yarn",
     "yarn": "3.3.0"
   },
-  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest -c test/jest.config.ts"
+  },
   "devDependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.10",

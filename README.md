@@ -1,11 +1,35 @@
-# @pascal-giguere/starter-node
+# Advent of Code 2022
 
-Pascal's starter Node project using:
- - Node 18
- - TypeScript 4
- - Yarn 3 (with PnP)
- - Prettier 2
- - ESLint 8
- - Jest 29
+TypeScript solutions for the Advent of Code 2022 puzzles
 
-Original repository: https://github.com/pascal-giguere/starter-node
+https://adventofcode.com/2022/
+
+## How to run
+
+The main way to interact with puzzle solutions is through Jest tests.
+
+**Prerequisites:**
+
+1. Install Node 18 or later
+2. Enable Node's Corepack feature: `corepack enable`
+3. Install dependencies: `yarn install`
+
+**Run tests for all puzzles:**
+
+```bash
+yarn test
+```
+
+**Run tests for a specific puzzle:**
+
+```bash
+yarn test -t q1
+```
+
+## Tech stack
+
+- Language: TypeScript 4.9
+- Environment: Node 18
+- Package manager: Yarn 3 (with PnP)
+- Testing framework: Jest
+- Linting and formatting: ESLint and Prettier
