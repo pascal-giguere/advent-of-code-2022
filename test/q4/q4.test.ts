@@ -21,12 +21,12 @@ describe('q4', () => {
   describe('Part 2', () => {
     it('finds the number of assignment pairs that partially or fully overlap with each other - simple input', () => {
       const overlappingPairCount: number = countOverlappingPairs(SIMPLE_INPUT);
-      expect(overlappingPairCount).toEqual(2);
+      expect(overlappingPairCount).toEqual(4);
     });
 
     it('finds the number of assignment pairs that partially or fully overlap with each other - complex input', () => {
       const overlappingPairCount: number = countOverlappingPairs(COMPLEX_INPUT);
-      expect(overlappingPairCount).toEqual(496);
+      expect(overlappingPairCount).toEqual(847);
     });
   });
 });

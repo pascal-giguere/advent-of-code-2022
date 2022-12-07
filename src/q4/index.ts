@@ -54,9 +54,7 @@ function isFullyOverlappingPair([assignmentA, assignmentB]: AssignmentsPair): bo
 /** @returns Whether the two provided assignments partially or fully overlap with each other */
 function isOverlappingPair([assignmentA, assignmentB]: AssignmentsPair): boolean {
   return (
-    assignmentA.start <= assignmentB.start ||
-    assignmentA.end >= assignmentB.end ||
-    assignmentB.start <= assignmentA.start ||
-    assignmentB.end >= assignmentA.end
+    (assignmentA.end >= assignmentB.start && assignmentA.start <= assignmentB.end) ||
+    (assignmentB.end >= assignmentA.start && assignmentB.start <= assignmentA.end)
   );
 }
