@@ -32,7 +32,7 @@ export function getSizeOfSmallestDirectoryToDelete(
   const spaceToFree: number = Math.max(0, requestedFreeSpace - currentFreeSpace);
   const directorySizes: Record<string, number> = getAllDirectorySizes(inputContents);
   return Object.values(directorySizes)
-    .sort((a, b) => b - a)
+    .sort((a, b) => a - b)
     .find((s) => s >= spaceToFree)!;
 }
 

@@ -29,7 +29,7 @@ describe('q7', () => {
     });
 
     it('finds the size of the smallest directory to delete to have requested free space - complex input', () => {
-      expect(getSizeOfSmallestDirectoryToDelete(COMPLEX_INPUT, 70_000_000, 30_000_000)).toEqual(15722729);
+      expect(getSizeOfSmallestDirectoryToDelete(COMPLEX_INPUT, 70_000_000, 30_000_000)).toEqual(2050735);
     });
   });
 });
