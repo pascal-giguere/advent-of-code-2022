@@ -18,6 +18,24 @@ export function getSizeOfSmallerDirectories(inputContents: string, maxDirectoryS
   return smallerDirectorySizes.reduce((acc, s) => acc + s, 0);
 }
 
+/** @returns The size of the smallest directory to delete in order to have at least `requestedFreeSpace` of free space
+ *  @param inputContents - String representing the input file's contents
+ *  @param fileSystemMaxSize - Maximum storage space of the file system
+ *  @param requestedFreeSpace - The minimum free space our system should have */
+export function getSizeOfSmallestDirectoryToDelete(
+  inputContents: string,
+  fileSystemMaxSize: number,
+  requestedFreeSpace: number
+): number {
+  const currentFileSystemSize: number = discoverFileSystem(inputContents).size();
+  const currentFreeSpace: number = fileSystemMaxSize - currentFileSystemSize;
+  const spaceToFree: number = Math.max(0, requestedFreeSpace - currentFreeSpace);
+  const directorySizes: Record<string, number> = getAllDirectorySizes(inputContents);
+  return Object.values(directorySizes)
+    .sort((a, b) => b - a)
+    .find((s) => s >= spaceToFree)!;
+}
+
 /** @returns The size of all directories in a file system, keyed by path
  *  @param inputContents - String representing the input file's contents */
 function getAllDirectorySizes(inputContents: string): Record<string, number> {
