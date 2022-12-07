@@ -2,8 +2,18 @@ type Assignment = { start: number; end: number };
 type AssignmentsPair = [Assignment, Assignment];
 type AssignmentsPairList = AssignmentsPair[];
 
+/** @returns The number of assignment pairs that fully overlap with each other
+ *  @param inputContents - String representing the input file's contents */
+export function countOverlappingPairs(inputContents: string): number {
+  const pairs: AssignmentsPairList = parseInput(inputContents);
+  pairs.forEach((pair) => {
+    console.log(pair, '\noverlaps: ', isOverlappingPair(pair));
+  });
+  return pairs.filter(isOverlappingPair).length;
+}
+
 /** @returns Parsed input file with no data transform applied */
-export function parseInput(inputContents: string): AssignmentsPairList {
+function parseInput(inputContents: string): AssignmentsPairList {
   const inputLines: string[] = inputContents.split('\n').filter((l) => !!l);
   return inputLines.map(parseInputLine);
 }
@@ -27,4 +37,12 @@ function parseAssignment(str: string): Assignment {
     start: parseInt(splitStr[0]),
     end: parseInt(splitStr[1]),
   };
+}
+
+/** @returns Whether the two provided assignments fully overlap with each other */
+function isOverlappingPair([assignmentA, assignmentB]: AssignmentsPair): boolean {
+  return (
+    (assignmentA.start <= assignmentB.start && assignmentA.end >= assignmentB.end) ||
+    (assignmentB.start <= assignmentA.start && assignmentB.end >= assignmentA.end)
+  );
 }
