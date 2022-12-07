@@ -9,6 +9,16 @@ export abstract class FileSystemNode {
     this.name = name;
     this.parent = parent;
   }
+
+  path(): string {
+    let node: FileSystemNode = this;
+    let path = this.name;
+    while (node.parent) {
+      node = node.parent;
+      path = `${node.name}/${path}`;
+    }
+    return path;
+  }
 }
 
 export class DirectoryNode extends FileSystemNode {
@@ -41,6 +51,21 @@ export class DirectoryNode extends FileSystemNode {
         if (matchedNode) {
           return matchedNode;
         }
+      }
+    }
+  }
+
+  childrenDirectorySizes(): Record<string, number> {
+    const sizes: Record<string, number> = {};
+    this.childrenDirectorySizesRecursive(sizes);
+    return sizes;
+  }
+
+  private childrenDirectorySizesRecursive(sizes: Record<string, number>): void {
+    for (const child of this.children) {
+      if (DirectoryNode.isDirectory(child)) {
+        sizes[child.path()] = child.size();
+        child.childrenDirectorySizesRecursive(sizes);
       }
     }
   }

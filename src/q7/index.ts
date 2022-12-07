@@ -7,6 +7,17 @@ export function getNodeSize(inputContents: string, nodeName: string): number {
   return matchedNode.size();
 }
 
+export function getSizeOfSmallerDirectories(inputContents: string, maxDirectorySize: number): number {
+  const directorySizes: Record<string, number> = getAllDirectorySizes(inputContents);
+  const smallerDirectorySizes: number[] = Object.values(directorySizes).filter((s) => s <= maxDirectorySize);
+  return smallerDirectorySizes.reduce((acc, s) => acc + s, 0);
+}
+
+function getAllDirectorySizes(inputContents: string): Record<string, number> {
+  const fileSystem: DirectoryNode = discoverFileSystem(inputContents);
+  return fileSystem.childrenDirectorySizes();
+}
+
 function findNode(inputContents: string, nodeName: string): FileSystemNode {
   const fileSystem: DirectoryNode = discoverFileSystem(inputContents);
   if (nodeName === '/') {
