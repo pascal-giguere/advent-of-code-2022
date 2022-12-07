@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { findMarkerCharacterPosition } from '../../src/q6';
+import { findMarkerCharacterPosition, findMessageCharacterPosition } from '../../src/q6';
 
 const SIMPLE_INPUT_1 = fs.readFileSync(path.join(__dirname, 'input-simple1.txt'), 'utf-8');
 const SIMPLE_INPUT_2 = fs.readFileSync(path.join(__dirname, 'input-simple2.txt'), 'utf-8');
@@ -24,5 +24,17 @@ describe('q6', () => {
     });
   });
 
-  // describe('Part 2', () => {});
+  describe('Part 2', () => {
+    it('finds the message character position - simple inputs', () => {
+      expect(findMessageCharacterPosition(SIMPLE_INPUT_1)).toEqual(19);
+      expect(findMessageCharacterPosition(SIMPLE_INPUT_2)).toEqual(23);
+      expect(findMessageCharacterPosition(SIMPLE_INPUT_3)).toEqual(23);
+      expect(findMessageCharacterPosition(SIMPLE_INPUT_4)).toEqual(29);
+      expect(findMessageCharacterPosition(SIMPLE_INPUT_5)).toEqual(26);
+    });
+
+    it('finds the message character position - complex input', () => {
+      expect(findMessageCharacterPosition(COMPLEX_INPUT)).toEqual(2508);
+    });
+  });
 });
