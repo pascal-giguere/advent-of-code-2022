@@ -11,6 +11,7 @@ export abstract class FileSystemNode {
   }
 
   path(): string {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     let node: FileSystemNode = this;
     let path = this.name;
     while (node.parent) {
