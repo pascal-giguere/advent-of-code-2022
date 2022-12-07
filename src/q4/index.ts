@@ -4,11 +4,15 @@ type AssignmentsPairList = AssignmentsPair[];
 
 /** @returns The number of assignment pairs that fully overlap with each other
  *  @param inputContents - String representing the input file's contents */
+export function countFullyOverlappingPairs(inputContents: string): number {
+  const pairs: AssignmentsPairList = parseInput(inputContents);
+  return pairs.filter(isFullyOverlappingPair).length;
+}
+
+/** @returns The number of assignment pairs that partially or fully overlap with each other
+ *  @param inputContents - String representing the input file's contents */
 export function countOverlappingPairs(inputContents: string): number {
   const pairs: AssignmentsPairList = parseInput(inputContents);
-  pairs.forEach((pair) => {
-    console.log(pair, '\noverlaps: ', isOverlappingPair(pair));
-  });
   return pairs.filter(isOverlappingPair).length;
 }
 
@@ -40,9 +44,19 @@ function parseAssignment(str: string): Assignment {
 }
 
 /** @returns Whether the two provided assignments fully overlap with each other */
-function isOverlappingPair([assignmentA, assignmentB]: AssignmentsPair): boolean {
+function isFullyOverlappingPair([assignmentA, assignmentB]: AssignmentsPair): boolean {
   return (
     (assignmentA.start <= assignmentB.start && assignmentA.end >= assignmentB.end) ||
     (assignmentB.start <= assignmentA.start && assignmentB.end >= assignmentA.end)
+  );
+}
+
+/** @returns Whether the two provided assignments partially or fully overlap with each other */
+function isOverlappingPair([assignmentA, assignmentB]: AssignmentsPair): boolean {
+  return (
+    assignmentA.start <= assignmentB.start ||
+    assignmentA.end >= assignmentB.end ||
+    assignmentB.start <= assignmentA.start ||
+    assignmentB.end >= assignmentA.end
   );
 }
