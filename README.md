@@ -8,7 +8,7 @@ Solutions favor readability and testability over performance or conciseness.
 
 ## How to run
 
-The main way to interact with puzzle solutions is through Jest tests.
+You can validate puzzle solutions by running Jest tests.
 
 **Prerequisites:**
 
@@ -34,4 +34,3 @@ yarn test -t q1
 - Environment: Node 18
 - Package manager: Yarn 3 (with PnP)
 - Testing framework: Jest
-- Linting and formatting: ESLint and Prettier
