@@ -12,10 +12,6 @@ export function calculateScenicScores(treesHeight: TreesHeightMatrix): TreesScen
     for (let i = 0; i < treesHeight[j].length; i++) {
       const treeHeight: number = treesHeight[j][i];
 
-      if (i === 2 && j === 1) {
-        console.log('l');
-      }
-
       // Look up
       let viewDistanceUp: number = 0;
       for (let y = j - 1; y >= 0; y--) {
