@@ -38,7 +38,7 @@ function parseStacksInput(stacksInput: string): Stacks {
 function parseInstructionsInput(instructionsInput: string): Instructions {
   const lines: string[] = instructionsInput.trim().split('\n');
   return lines.map((line: string) => {
-    const [, crateAmount, origin, destination] = line.match(/^move (\d) from (\d) to (\d)$/)!;
+    const [, crateAmount, origin, destination] = line.match(/^move (\d+) from (\d+) to (\d+)$/)!;
     return {
       crateAmount: parseInt(crateAmount),
       origin: parseInt(origin),
