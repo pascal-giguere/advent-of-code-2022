@@ -1,3 +1,5 @@
+import { itemTypePriority } from './shared';
+
 type Rucksack = [string, string];
 
 /** @returns The sum of the priority of each item type found in both rucksack compartments
@@ -22,15 +24,4 @@ function parseRucksackInput(rucksackInput: string): Rucksack {
 
 function findCommonItemType(rucksack: Rucksack): string {
   return [...rucksack[0]].find((char: string) => [...rucksack[1]].includes(char))!;
-}
-
-function itemTypePriority(itemType: string): number {
-  const charCode: number = itemType.charCodeAt(0);
-  if (charCode > 96) {
-    // lowercase letter
-    return charCode - 96;
-  } else {
-    // uppercase letter
-    return charCode - 38;
-  }
 }
