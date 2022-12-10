@@ -1,3 +1,6 @@
+import { programSignalHistory, programXHistory } from './program';
+import { ElvesCRTDisplay } from './crt';
+
 /** @returns the sum of interesting signal strengths after running a CPU program
  *  @param inputContents - String representing the input file's contents */
 export function programInterestingSignalSum(inputContents: string): number {
@@ -15,50 +18,13 @@ export function programInterestingSignalSum(inputContents: string): number {
   );
 }
 
-/** @returns historical signal strength for each CPU cycle */
-function programSignalHistory(inputContents: string): number[] {
-  const instructions: string[] = inputContents.trim().split('\n');
-  const program = new CPUProgram(instructions);
-  program.run();
-  return program.signalHistory;
-}
-
-class CPUProgram {
-  x: number = 1;
-  cpuCycles: number = 0;
-  instructions: string[];
-  signalHistory: number[] = [];
-
-  constructor(instructions: string[]) {
-    this.instructions = instructions;
+/** @returns the output of the CRT after running the program
+ *  @param inputContents - String representing the input file's contents */
+export function programCrtOutput(inputContents: string): string {
+  const xHistory: number[] = programXHistory(inputContents);
+  if (xHistory.length < 220) {
+    throw Error('Program too short. Instructions must take at least 220 cycles to execute.');
   }
-
-  run = (): void => {
-    this.instructions.forEach(this.executeInstruction);
-  };
-
-  signalStrength = (): number => {
-    return this.cpuCycles * this.x;
-  };
-
-  private executeInstruction = (instruction: string): void => {
-    const [command, arg] = instruction.split(' ');
-    switch (command) {
-      case 'addx':
-        this.tick();
-        this.tick();
-        this.x += parseInt(arg);
-        break;
-      case 'noop':
-        this.tick();
-        break;
-      default:
-        throw Error(`Unsupported command: '${command}'`);
-    }
-  };
-
-  private tick = (): void => {
-    this.cpuCycles++;
-    this.signalHistory.push(this.signalStrength());
-  };
+  const pixels: boolean[] = xHistory.map((x: number, cycle: number) => x === cycle);
+  return new ElvesCRTDisplay(pixels).getOutput();
 }
