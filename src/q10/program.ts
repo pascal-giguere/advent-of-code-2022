@@ -4,12 +4,13 @@ export function programSignalHistory(inputContents: string): number[] {
   return program.signalHistory;
 }
 
-/** @returns historical X register value for each CPU cycle */
-export function programXHistory(inputContents: string): number[] {
+/** @returns Array of pixels corresponding to the program's display output */
+export function programDisplayOutput(inputContents: string, displayWidth: number): boolean[] {
   const program: CPUProgram = runProgram(inputContents);
-  return program.xHistory;
+  return program.displayOutput(displayWidth);
 }
 
+/** @returns CPUProgram object of the program that has been run */
 function runProgram(inputContents: string): CPUProgram {
   const instructions: string[] = inputContents.trim().split('\n');
   const program = new CPUProgram(instructions);
@@ -34,6 +35,15 @@ export class CPUProgram {
 
   signalStrength = (): number => {
     return this.cpuCycles * this.x;
+  };
+
+  displayOutput = (displayWidth: number): boolean[] => {
+    return this.xHistory.map((x: number, cycle: number) => this.isSpriteVisible(x, cycle, displayWidth));
+  };
+
+  private isSpriteVisible = (x: number, cycle: number, displayWidth: number): boolean => {
+    const pixelPosition: number = cycle % displayWidth;
+    return pixelPosition >= Math.max(0, x - 1) && pixelPosition <= Math.min(x + 1, this.xHistory.length - 1);
   };
 
   private executeInstruction = (instruction: string): void => {

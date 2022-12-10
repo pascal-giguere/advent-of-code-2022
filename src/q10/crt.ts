@@ -20,8 +20,8 @@ class CRTDisplay {
 
 /* The elves' particular display with a fixed 40x6 resolution */
 export class ElvesCRTDisplay extends CRTDisplay {
-  private static RESOLUTION_X = 40;
-  private static RESOLUTION_Y = 6;
+  static RESOLUTION_X = 40;
+  static RESOLUTION_Y = 6;
   constructor(pixels: boolean[]) {
     if (pixels.length !== ElvesCRTDisplay.RESOLUTION_X * ElvesCRTDisplay.RESOLUTION_Y) {
       throw Error('Incorrect pixel buffer length');

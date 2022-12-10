@@ -1,4 +1,4 @@
-import { programSignalHistory, programXHistory } from './program';
+import { programSignalHistory, programDisplayOutput } from './program';
 import { ElvesCRTDisplay } from './crt';
 
 /** @returns the sum of interesting signal strengths after running a CPU program
@@ -18,13 +18,9 @@ export function programInterestingSignalSum(inputContents: string): number {
   );
 }
 
-/** @returns the output of the CRT after running the program
+/** @returns the output of the elves' CRT after running the provided program
  *  @param inputContents - String representing the input file's contents */
-export function programCrtOutput(inputContents: string): string {
-  const xHistory: number[] = programXHistory(inputContents);
-  if (xHistory.length < 220) {
-    throw Error('Program too short. Instructions must take at least 220 cycles to execute.');
-  }
-  const pixels: boolean[] = xHistory.map((x: number, cycle: number) => x === cycle);
+export function programElvesCrtOutput(inputContents: string): string {
+  const pixels: boolean[] = programDisplayOutput(inputContents, ElvesCRTDisplay.RESOLUTION_X);
   return new ElvesCRTDisplay(pixels).getOutput();
 }
