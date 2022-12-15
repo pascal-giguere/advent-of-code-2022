@@ -22,7 +22,7 @@ describe('q11', () => {
     });
 
     it('finds the level of monkey business after 10000 rounds of Keep Away - relief disabled - complex input', () => {
-      expect(getMonkeyBusinessLevel(COMPLEX_INPUT, 10000, false)).toEqual(0);
+      expect(getMonkeyBusinessLevel(COMPLEX_INPUT, 10000, false)).toEqual(18085004878);
     });
   });
 });

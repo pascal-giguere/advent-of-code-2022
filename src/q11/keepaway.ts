@@ -6,6 +6,7 @@ import { Monkey, Operation, Operator, parseInput, Test } from './parsing';
  *  @param reliefEnabled - Whether worry level should be divided by 3 after item inspection */
 export function playKeepAway(inputContents: string, numberOfRounds: number, reliefEnabled: boolean): Monkey[] {
   const monkeys: Monkey[] = parseInput(inputContents);
+  const testsProduct: number = getTestsProduct(monkeys);
 
   for (let i = 0; i < numberOfRounds; i++) {
     for (const monkey of monkeys) {
@@ -15,6 +16,7 @@ export function playKeepAway(inputContents: string, numberOfRounds: number, reli
         if (reliefEnabled) {
           worryLevel = applyRelief(worryLevel);
         }
+        worryLevel = worryLevel % BigInt(testsProduct);
         const nextMonkeyIndex: number = targetMonkeyIndex(worryLevel, monkey.test);
         monkeys[nextMonkeyIndex].items.push(worryLevel);
         monkey.numberOfInspections++;
@@ -23,6 +25,10 @@ export function playKeepAway(inputContents: string, numberOfRounds: number, reli
   }
 
   return monkeys;
+}
+
+function getTestsProduct(monkeys: Monkey[]): number {
+  return monkeys.reduce((acc: number, monkey: Monkey) => acc * monkey.test.divisibleBy, 1);
 }
 
 /** @returns The updated worry level after the operation has been applied */
