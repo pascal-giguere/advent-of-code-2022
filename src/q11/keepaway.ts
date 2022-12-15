@@ -2,8 +2,9 @@ import { Monkey, Operation, Operator, parseInput, Test } from './parsing';
 
 /** @returns Array of Monkey objects after playing n rounds of Keep Away
  *  @param inputContents - String representing the input file's contents
- *  @param numberOfRounds - Number of rounds of Keep Away to be played by monkeys */
-export function playKeepAway(inputContents: string, numberOfRounds: number): Monkey[] {
+ *  @param numberOfRounds - Number of rounds of Keep Away to be played by monkeys
+ *  @param reliefEnabled - Whether worry level should be divided by 3 after item inspection */
+export function playKeepAway(inputContents: string, numberOfRounds: number, reliefEnabled: boolean): Monkey[] {
   const monkeys: Monkey[] = parseInput(inputContents);
 
   for (let i = 0; i < numberOfRounds; i++) {
@@ -11,7 +12,9 @@ export function playKeepAway(inputContents: string, numberOfRounds: number): Mon
       while (monkey.items.length) {
         let worryLevel: number = monkey.items.shift()!;
         worryLevel = applyOperation(worryLevel, monkey.operation);
-        worryLevel = applyRelief(worryLevel);
+        if (reliefEnabled) {
+          worryLevel = applyRelief(worryLevel);
+        }
         const nextMonkeyIndex: number = targetMonkeyIndex(worryLevel, monkey.test);
         monkeys[nextMonkeyIndex].items.push(worryLevel);
         monkey.numberOfInspections++;

@@ -7,14 +7,22 @@ const COMPLEX_INPUT = fs.readFileSync(path.join(__dirname, 'input-complex.txt'),
 
 describe('q11', () => {
   describe('Part 1', () => {
-    it('finds the level of monkey business after 20 rounds of Keep Away - simple input', () => {
-      expect(getMonkeyBusinessLevel(SIMPLE_INPUT, 20)).toEqual(10605);
+    it('finds the level of monkey business after 20 rounds of Keep Away - relief enabled - simple input', () => {
+      expect(getMonkeyBusinessLevel(SIMPLE_INPUT, 20, true)).toEqual(10605);
     });
 
-    it('finds the level of monkey business after 20 rounds of Keep Away - complex input', () => {
-      expect(getMonkeyBusinessLevel(COMPLEX_INPUT, 20)).toEqual(119715);
+    it('finds the level of monkey business after 20 rounds of Keep Away - relief enabled - complex input', () => {
+      expect(getMonkeyBusinessLevel(COMPLEX_INPUT, 20, true)).toEqual(119715);
     });
   });
 
-  // describe('Part 2', () => {});
+  describe('Part 2', () => {
+    it('finds the level of monkey business after 10000 rounds of Keep Away - relief disabled - simple input', () => {
+      expect(getMonkeyBusinessLevel(SIMPLE_INPUT, 10000, false)).toEqual(2713310158);
+    });
+
+    it('finds the level of monkey business after 10000 rounds of Keep Away - relief disabled - complex input', () => {
+      expect(getMonkeyBusinessLevel(COMPLEX_INPUT, 10000, false)).toEqual(0);
+    });
+  });
 });
