@@ -1,5 +1,5 @@
 export type Monkey = {
-  items: number[];
+  items: bigint[];
   operation: Operation;
   test: Test;
   numberOfInspections: number;
@@ -31,7 +31,7 @@ export function parseInput(inputContents: string): Monkey[] {
 
 function parseMonkeyInput(monkeyInput: string): Monkey {
   const [, itemsString] = monkeyInput.match(/Starting items: (.*)/)!;
-  const items: number[] = itemsString.split(',').map((n) => parseInt(n));
+  const items: bigint[] = itemsString.split(',').map((n) => BigInt(n));
 
   let operand: number | undefined;
   const [, operatorString, operandString] = monkeyInput.match(/Operation: new = old (.) (.*)/)!;

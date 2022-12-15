@@ -10,7 +10,7 @@ export function playKeepAway(inputContents: string, numberOfRounds: number, reli
   for (let i = 0; i < numberOfRounds; i++) {
     for (const monkey of monkeys) {
       while (monkey.items.length) {
-        let worryLevel: number = monkey.items.shift()!;
+        let worryLevel: bigint = monkey.items.shift()!;
         worryLevel = applyOperation(worryLevel, monkey.operation);
         if (reliefEnabled) {
           worryLevel = applyRelief(worryLevel);
@@ -26,24 +26,24 @@ export function playKeepAway(inputContents: string, numberOfRounds: number, reli
 }
 
 /** @returns The updated worry level after the operation has been applied */
-function applyOperation(worryLevel: number, operation: Operation): number {
+function applyOperation(worryLevel: bigint, operation: Operation): bigint {
   switch (operation.operator) {
     case Operator.Add:
-      return worryLevel + operation.operand;
+      return worryLevel + BigInt(operation.operand);
     case Operator.Multiply:
-      return worryLevel * operation.operand;
+      return worryLevel * BigInt(operation.operand);
     case Operator.Pow:
-      return Math.pow(worryLevel, operation.operand);
+      return worryLevel ** BigInt(operation.operand);
   }
 }
 
 /** @returns The updated worry level after relief has been applied */
-function applyRelief(worryLevel: number): number {
-  return Math.floor(worryLevel / 3);
+function applyRelief(worryLevel: bigint): bigint {
+  return worryLevel / 3n;
 }
 
 /** @returns The zero-based index of the monkey the item should be thrown to next */
-function targetMonkeyIndex(worryLevel: number, test: Test): number {
-  const isDivisible: boolean = worryLevel % test.divisibleBy === 0;
+function targetMonkeyIndex(worryLevel: bigint, test: Test): number {
+  const isDivisible: boolean = worryLevel % BigInt(test.divisibleBy) === 0n;
   return isDivisible ? test.trueMonkeyIndex : test.falseMonkeyIndex;
 }
